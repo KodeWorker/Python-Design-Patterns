@@ -21,7 +21,7 @@
 
 ## The Factory Pattern
 
-    ** Client ---> (Interface) ---> Factory ** 
+    **Client ---> (Interface) ---> Factory** 
 
     Advatages:
     - The first advandage is loose coupling in which object creation can be independent of the class implementation
@@ -40,14 +40,14 @@
 
 ## The Builder Pattern
 
-    ** Director ---> Builder ---> (Concrete Builder) ---> Product ** 
+    **Director ---> Builder ---> (Concrete Builder) ---> Product** 
 
     Separate the construction of a complex object from  its representation so that the same construction process can create different representations.
     Building objects by assembling specifict parts.
     
 ## The Prototype Pattern
 
-    ** "Builder Pattern" with .clone() in the product**
+    **"Builder Pattern" with .clone() in the product**
 
     Specify the kinds of objects to use a prototypical instance, and create new objects by copying this prototype.
     It's often used when creation(initiation) of an object is costly.
@@ -65,8 +65,8 @@
     The Borg Idiom (a.k.a monostate pattern) lets a class have as many instances as one likes, but ensure that they all share the same state.
     
     Object creation vs. object initiation
-    - ** __new__ ** is the first step of instance creation; it's called before __init__, and is responsible for returing a new instance of your class
-    - ** __init__ ** dosen't return anything; it's only responsible for initializing the instance after it's been created.
+    - **__new__** is the first step of instance creation; it's called before __init__, and is responsible for returing a new instance of your class
+    - **__init__** dosen't return anything; it's only responsible for initializing the instance after it's been created.
     
     Comparison between Singleton and Borg
     - Singleton: 
@@ -86,5 +86,5 @@
 1. **LearningPython Design Patterns - Second Edition**
 by Chetan Giridhar, Packt Publishing, Feb. 2016
 
-2. ** Python Design Patterns **
+2. **Python Design Patterns**
 by Tong Qiu, Packt Publishing, 2017

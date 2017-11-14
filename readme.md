@@ -80,7 +80,60 @@
     - Error-prone: if you forget local and global statements, it will create confusions.
     - They pollute the module namespace
     - No OOP benefits like associated methods or reuse through inheritance
+
+## The Model View Controller Pattern
+
+    [Description #1]
     
+    MVC is an UI pattern, intended to separate internal representations of data from the ways it is presented to/accepted from the user.
+    
+    WEB REQUEST ---> [ROUTES] ---> [CONTROLLER] <---> [MODEL] <---> [DATABASE]
+                                        |
+                                        v
+                                    [VIEW] ---> PAGE
+    
+    Flask: Micro web framework for python / Uses Jinja template engine/ Used by Pinterest and LinkedIn/ Django is a more feature-heavy alternative
+
+    [Description #2]
+
+    MVC is a compound pattern. In most software implementation, patterns don't work in isolation.
+    The model presents the data and business logic (how information is sorted and queried), view is nothing but the representation (how it is presented) of the data, and controller is the glue between the two.
+    
+    The MVC pattern is used in the following cases:
+    - When there is a need to change the presentation without changes in the business logic.
+    - Multiple controllers can be used to work with multiple views to change the representation on the user interface.
+    - Once again, the model can be changed without changes in the view as they can work independently of each other.
+    
+## The Facade Pattern
+
+    Provide a unified interface to a set of interfaces in a subsystem. A facade defines a higher-level interface that makes the subsystem easier to use.
+    Use the components without knowing the details of them. Used when combining complex systems into one simple interface.
+
+    CLIENT ---> [FACADE] ---> [ComplicatedClassA]
+                    |
+                    --------> [ComplicatedClassB]
+                    |
+                    --------> [ComplicatedClassC] ...
+                
+    - Reduce dependencies of outside code on the inner workings of library.
+    - Wrap a poorly designed collection of APIs with a single well designed API.
+
+## The Proxy Pattern
+
+    A proxy provides a surrogate or place holder to provide access to an object.
+    
+    CLIENT                   [PROXY]
+        |                       |
+        [] ---- request() ----> [] ---------------> [REAL SUBJECT]
+        []                      |                       |
+        [] <------------------- [] <---------------------
+        
+    The Proxy pattern is used in the following senarios:
+    - It adds security to the existing real object.
+    - It provides a local interface for remote objects on different servers.
+    - It provides a light handle for a higher memory-consuming object.
+        
+
 # Reference:
 
 1. **LearningPython Design Patterns - Second Edition**

@@ -133,7 +133,27 @@
     - It provides a local interface for remote objects on different servers.
     - It provides a light handle for a higher memory-consuming object.
         
+## The Decorator Pattern
 
+    Attach additional responsibilities to an object dynamically.
+    Decorators provide a flexible alternative to subclassing for extending functionality.
+    
+    - Sometimes, subclassing is not the best solution
+    
+    [Window] ------ [Window with Horizontal SB] -------- [Window with Vertical and Horizontal SB]
+                |                                   |                       |
+                --- [Window with Vertical SB] -------                       |
+                |                                                           |
+                --- [Window with Border] ---------------------------------------- [Window with Vertical and Horizontal SB and Border]
+    
+    [LCD] ----- [Window]        --- [Border]
+            |                   |
+            --- [Decorator] ------- [Vertical SB]
+                                |
+                                --- [Horizontal SB]
+                                
+    - Decorator design pattern is not Python decorator/function wrapper !!! (OOB design pattern vs function decorator)
+    
 # Reference:
 
 1. **LearningPython Design Patterns - Second Edition**

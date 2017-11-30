@@ -154,6 +154,68 @@
                                 
     - Decorator design pattern is not Python decorator/function wrapper !!! (OOB design pattern vs function decorator)
     
+## The Adapter Pattern
+
+    Convert the interface of a class into another interface clients expect.
+    Adapter lets classes work together that couldn;t otherwise because of incompatible interfaces.
+    
+    - Make old component usable in a new system
+    - Make an 'off-the-shelf' solution usable in a system that is not fully compatible.
+
+    [Ratchet / interface#1 ] ---> [Adapter / interface#1, interface#2] ---> [Socket / interface#2]
+
+## The Command Pattern
+    
+    [Description #1]
+    Decouple the object that invokes the operation from the one that knows how to perform it.
+    
+    - The Client creates a Command object that can ve executed at a later date
+    - This object knows about a receiver object that manages its own internal state when the command is executed on it
+    - One or more Invoker objects execute the command at the correct time
+    
+    [Client] ---> [Command / execute()] ...> [CommandInterface / execute()] --- [Invoker]
+        |               |
+        |               v
+        --------> [Receiver]
+    
+    [Description #2]
+    The Command pattern is a behavioral design pattern in which an object is used to encapsulate all the infomation needed to perform an action or trigger an event at a later time.
+    This information includes the following:
+    - The method name
+    - An object that owns the method
+    - Values for method parameters
+    
+    Example: installation wizard ---> choose different setting (store command information) ---> click "Finish" Button (execute command)
+    
+    The Command pattern works with the following terms - Command, Receiver, Invoker and Client:
+    - A Command object knows about the Receiver objects and invokes a method of the Receiver object
+    - Values for parameter of the reveiver method are stored in the Command object
+    - The invoker knows how to execute a command
+    - The client creates a Command object and sets its receiver
+    
+    The main intentions of the Command pattern are as follows:
+    - Encapsulating a request as an object
+    - Allowing the parameterization of clients with different requests
+    - Allowing to save the requests in a queue
+    - Providing an object-oriented callback
+    
+    [Client] ---> [Receiver / action()]
+        .                   ^
+        .                   |
+        ........> [ConcreteCommand / execute()] ---> [Command / execute()] --- [Invoker]
+
+    Advantages
+    - It decouples the classes that invoke the operation from the object that knows hot to execute the operation
+    - It allows you to create a sequence of commands by providing a queue system
+    - Extensions to add a new command is easy and can be done without changing the existing code
+    - You can also define a rollback system with the Command pattern, for example, in the Wizard example, we could write a rollback method
+    
+    Disavantages
+    - There are a high number of classes and objects working together to achieve a goal.
+    Application developers need to be careful developing these classes correctly.
+    - Every individual command is a ConcreteCommand class that increases the volume of classes for implementation and maintenance.
+    
+
 # Reference:
 
 1. **LearningPython Design Patterns - Second Edition**

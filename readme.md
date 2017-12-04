@@ -17,7 +17,7 @@
 3. Behavioral Patterns
     - They are concerned with the interaction among objects and responsibility of objects
     - Objects should be also be able to interact and still be loosely coupled
-    Command, Interpreter, State, Chain of responsibility, Strategy, Observer, Memento, Template, Reactive design patterns
+    Command, Interpretor, State, Chain of responsibility, Strategy, Observer, Memento, Template, Reactive design patterns
 
 ## The Factory Pattern
 
@@ -215,7 +215,66 @@
     Application developers need to be careful developing these classes correctly.
     - Every individual command is a ConcreteCommand class that increases the volume of classes for implementation and maintenance.
     
+## The Interpretor Pattern
 
+    (Language interpretor for specific domain.)
+    
+    Define a grammatical representation for a language and an interpretor to interpret the grammar.
+    
+    - Client: build the tree of expressions, the interpret method of the top item in the tree is then called
+    - Context(Optional): used to store any information that needs to be available to all expression objects
+    - ExpressionBase: base class defining the Interpret method
+    - TerminalExpression: can be interpreted in a single object
+    - NonterminalExpression: aggregates containing one or more further expressions, each of which may be terminal or non-terminal
+    
+    [Client] ---> [ExpressionBase] ------------------
+        |               ^   ^                       |
+        |               |   |                       |
+        v               |   ---------- [NonterminalExpression]
+    [Context]   [TerminalExpression]
+
+## The State Pattern
+
+    [Description #1]
+    Allow an object to alter its behavior when its internal state changes.
+    
+    - Define a Context class to present a single interface to the outside world.
+    - Define a State abstract base class.
+    - Represent the different states of the state machine as derived classes of the State base class.
+    - Maintain a pointer to the current state in the context class
+    - To change the state of the state machine, change the current state pointer
+    
+    [Context / Request()] <state>---> [State / Handle()] <---------------
+        .                               ^                               |
+        .                               |                               |
+        .                               |                               |
+        .                       [ConcreteStateA / Handle()]    [ConcreteStateB / Handle()]
+        v
+    [state.Handler()]
+
+    [Description #2]
+    The state design is a behavioral design pattern, which is also sometimes referred to as an objects for states pattern.
+    In this pattern, an object can encapsulate multiple behaviors based on its internal state.
+    A State pattern is also considered as a way for an object to change its behavior at runtime
+    
+    - State: This is considered to be an interface that encapsulates the object's behavior.
+    This behavior is associated with the state of the object.
+    - ConcreteState: This is a subclass that implements the State interface.
+    ConcreteState implements the actual behavior associated with object's particular state.
+    - Context: This defines the interface of interest to clients.
+    Context also maintains an instance of the ConcreteState subclass that internally defines the implementation of the object's particular state.
+    
+    Advantages:
+    - This removes the dependency on the if/else or switch/case conditional logic.
+    - It's benefitial for implementing polymorphic behavior.
+    - State pattern imporves cohesion since ConcreteState code location.
+    - It is easy to add states to support additional behavior.
+    
+    Disavantages:
+    - Class Explosion: class for each state.
+    - With the introduction of every new behavior, the Context class needs to be updated to deal with each behavior.
+    
+    
 # Reference:
 
 1. **LearningPython Design Patterns - Second Edition**

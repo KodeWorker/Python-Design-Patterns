@@ -217,7 +217,7 @@
     
 ## The Interpretor Pattern
 
-    (Language interpretor for specific domain.)
+    (Language interpretor for specific domain. Grammar or DSL)
     
     Define a grammatical representation for a language and an interpretor to interpret the grammar.
     
@@ -273,7 +273,20 @@
     Disavantages:
     - Class Explosion: class for each state.
     - With the introduction of every new behavior, the Context class needs to be updated to deal with each behavior.
+
+## Chain of Responsibility
+
+    Avoids coupling the sender of a request to the receiver by giving more than one object a chance to handle the request.
     
+    - Number and/or type of handler objects unknown at the point the client sends the request
+    - Multiple and dynamically configuable receivers, each only needs to maintain a reference to its immediate successor
+    - Immediate response not required
+    
+                              ..........................................................//
+                              .                                                         \\
+    [Client] ---<Request>---> . ---> [Processing element] ---> [Processing element] --->//
+                              .                                                         \\
+                              ..........................................................//
     
 # Reference:
 

@@ -140,6 +140,7 @@ Decorators provide a flexible alternative to subclassing for extending functiona
 
 - Sometimes, subclassing is not the best solution
 
+
     [Window] ------ [Window with Horizontal SB] -------- [Window with Vertical and Horizontal SB]
                 |                                   |                       |
                 --- [Window with Vertical SB] -------                       |
@@ -151,7 +152,8 @@ Decorators provide a flexible alternative to subclassing for extending functiona
             --- [Decorator] ------- [Vertical SB]
                                 |
                                 --- [Horizontal SB]
-                            
+                 
+                    
 - Decorator design pattern is not Python decorator/function wrapper !!! (OOB design pattern vs function decorator)
     
 ## The Adapter Pattern
@@ -162,7 +164,9 @@ Adapter lets classes work together that couldn;t otherwise because of incompatib
 - Make old component usable in a new system
 - Make an 'off-the-shelf' solution usable in a system that is not fully compatible.
 
+
     [Ratchet / interface#1 ] ---> [Adapter / interface#1, interface#2] ---> [Socket / interface#2]
+
 
 ## The Command Pattern
     
@@ -173,10 +177,12 @@ Decouple the object that invokes the operation from the one that knows how to pe
 - This object knows about a receiver object that manages its own internal state when the command is executed on it
 - One or more Invoker objects execute the command at the correct time
 
+
     [Client] ---> [Command / execute()] ...> [CommandInterface / execute()] --- [Invoker]
         |               |
         |               v
         --------> [Receiver]
+
 
 [Description #2]
 The Command pattern is a behavioral design pattern in which an object is used to encapsulate all the infomation needed to perform an action or trigger an event at a later time.
@@ -199,10 +205,12 @@ The main intentions of the Command pattern are as follows:
 - Allowing to save the requests in a queue
 - Providing an object-oriented callback
 
+
     [Client] ---> [Receiver / action()]
         .                   ^
         .                   |
         ........> [ConcreteCommand / execute()] ---> [Command / execute()] --- [Invoker]
+
 
 Advantages
 - It decouples the classes that invoke the operation from the object that knows hot to execute the operation
@@ -227,11 +235,13 @@ Define a grammatical representation for a language and an interpretor to interpr
 - TerminalExpression: can be interpreted in a single object
 - NonterminalExpression: aggregates containing one or more further expressions, each of which may be terminal or non-terminal
 
+
     [Client] ---> [ExpressionBase] ------------------
         |               ^   ^                       |
         |               |   |                       |
         v               |   ---------- [NonterminalExpression]
     [Context]   [TerminalExpression]
+
 
 ## The State Pattern
 
@@ -244,6 +254,7 @@ Allow an object to alter its behavior when its internal state changes.
 - Maintain a pointer to the current state in the context class
 - To change the state of the state machine, change the current state pointer
 
+
     [Context / Request()] <state>---> [State / Handle()] <---------------
         .                               ^                               |
         .                               |                               |
@@ -251,6 +262,7 @@ Allow an object to alter its behavior when its internal state changes.
         .                       [ConcreteStateA / Handle()]    [ConcreteStateB / Handle()]
         v
     [state.Handler()]
+
 
 [Description #2]
 The state design is a behavioral design pattern, which is also sometimes referred to as an objects for states pattern.

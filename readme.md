@@ -138,9 +138,6 @@ The Proxy pattern is used in the following senarios:
 Attach additional responsibilities to an object dynamically.
 Decorators provide a flexible alternative to subclassing for extending functionality.
 
-- Sometimes, subclassing is not the best solution
-
-
     [Window] ------ [Window with Horizontal SB] -------- [Window with Vertical and Horizontal SB]
                 |                                   |                       |
                 --- [Window with Vertical SB] -------                       |
@@ -152,8 +149,8 @@ Decorators provide a flexible alternative to subclassing for extending functiona
             --- [Decorator] ------- [Vertical SB]
                                 |
                                 --- [Horizontal SB]
-                 
-                    
+                                
+- Sometimes, subclassing is not the best solution
 - Decorator design pattern is not Python decorator/function wrapper !!! (OOB design pattern vs function decorator)
     
 ## The Adapter Pattern
@@ -161,28 +158,24 @@ Decorators provide a flexible alternative to subclassing for extending functiona
 Convert the interface of a class into another interface clients expect.
 Adapter lets classes work together that couldn;t otherwise because of incompatible interfaces.
 
-- Make old component usable in a new system
-- Make an 'off-the-shelf' solution usable in a system that is not fully compatible.
-
-
     [Ratchet / interface#1 ] ---> [Adapter / interface#1, interface#2] ---> [Socket / interface#2]
 
-
+- Make old component usable in a new system
+- Make an 'off-the-shelf' solution usable in a system that is not fully compatible.
+    
 ## The Command Pattern
     
 [Description #1]
 Decouple the object that invokes the operation from the one that knows how to perform it.
 
-- The Client creates a Command object that can ve executed at a later date
-- This object knows about a receiver object that manages its own internal state when the command is executed on it
-- One or more Invoker objects execute the command at the correct time
-
-
-    [Client] ---> [Command / execute()] ...> [CommandInterface / execute()] --- [Invoker]
+[Client] ---> [Command / execute()] ...> [CommandInterface / execute()] --- [Invoker]
         |               |
         |               v
         --------> [Receiver]
 
+- The Client creates a Command object that can ve executed at a later date
+- This object knows about a receiver object that manages its own internal state when the command is executed on it
+- One or more Invoker objects execute the command at the correct time
 
 [Description #2]
 The Command pattern is a behavioral design pattern in which an object is used to encapsulate all the infomation needed to perform an action or trigger an event at a later time.
@@ -200,17 +193,16 @@ The Command pattern works with the following terms - Command, Receiver, Invoker 
 - The client creates a Command object and sets its receiver
 
 The main intentions of the Command pattern are as follows:
-- Encapsulating a request as an object
-- Allowing the parameterization of clients with different requests
-- Allowing to save the requests in a queue
-- Providing an object-oriented callback
-
 
     [Client] ---> [Receiver / action()]
         .                   ^
         .                   |
         ........> [ConcreteCommand / execute()] ---> [Command / execute()] --- [Invoker]
 
+- Encapsulating a request as an object
+- Allowing the parameterization of clients with different requests
+- Allowing to save the requests in a queue
+- Providing an object-oriented callback
 
 Advantages
 - It decouples the classes that invoke the operation from the object that knows hot to execute the operation
@@ -229,31 +221,22 @@ Application developers need to be careful developing these classes correctly.
 
 Define a grammatical representation for a language and an interpretor to interpret the grammar.
 
-- Client: build the tree of expressions, the interpret method of the top item in the tree is then called
-- Context(Optional): used to store any information that needs to be available to all expression objects
-- ExpressionBase: base class defining the Interpret method
-- TerminalExpression: can be interpreted in a single object
-- NonterminalExpression: aggregates containing one or more further expressions, each of which may be terminal or non-terminal
-
-
     [Client] ---> [ExpressionBase] ------------------
         |               ^   ^                       |
         |               |   |                       |
         v               |   ---------- [NonterminalExpression]
     [Context]   [TerminalExpression]
 
+- Client: build the tree of expressions, the interpret method of the top item in the tree is then called
+- Context(Optional): used to store any information that needs to be available to all expression objects
+- ExpressionBase: base class defining the Interpret method
+- TerminalExpression: can be interpreted in a single object
+- NonterminalExpression: aggregates containing one or more further expressions, each of which may be terminal or non-terminal
 
 ## The State Pattern
 
 [Description #1]
 Allow an object to alter its behavior when its internal state changes.
-
-- Define a Context class to present a single interface to the outside world.
-- Define a State abstract base class.
-- Represent the different states of the state machine as derived classes of the State base class.
-- Maintain a pointer to the current state in the context class
-- To change the state of the state machine, change the current state pointer
-
 
     [Context / Request()] <state>---> [State / Handle()] <---------------
         .                               ^                               |
@@ -263,6 +246,11 @@ Allow an object to alter its behavior when its internal state changes.
         v
     [state.Handler()]
 
+- Define a Context class to present a single interface to the outside world.
+- Define a State abstract base class.
+- Represent the different states of the state machine as derived classes of the State base class.
+- Maintain a pointer to the current state in the context class
+- To change the state of the state machine, change the current state pointer
 
 [Description #2]
 The state design is a behavioral design pattern, which is also sometimes referred to as an objects for states pattern.
@@ -290,23 +278,19 @@ Disavantages:
 
 Avoids coupling the sender of a request to the receiver by giving more than one object a chance to handle the request.
 
-- Number and/or type of handler objects unknown at the point the client sends the request
-- Multiple and dynamically configuable receivers, each only needs to maintain a reference to its immediate successor
-- Immediate response not required
-
                               ..........................................................//
                               .                                                         \\
     [Client] ---<Request>---> . ---> [Processing element] ---> [Processing element] --->//
                               .                                                         \\
                               ..........................................................//
 
+- Number and/or type of handler objects unknown at the point the client sends the request
+- Multiple and dynamically configuable receivers, each only needs to maintain a reference to its immediate successor
+- Immediate response not required
+
 ## The Observer Pattern
 
 Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and update automatically.
-
-- The subject is the "keeper" of the data model/business logic.
-- Delegate all "view" functionality to decoupled and distinct Observer objects, which register themselves with the Subject.
-- When the Subject changes, it broadcasts to all registered Observers.
 
     [Subject    ] ----<views>---> [Observer     ]    
     [+attach    ] <---<model>---- [+update()    ]
@@ -320,6 +304,10 @@ Define a one-to-many dependency between objects so that when one object changes 
         .                                   .       
     for each view in views                  .
         v.update()                      model.getState()
+
+- The subject is the "keeper" of the data model/business logic.
+- Delegate all "view" functionality to decoupled and distinct Observer objects, which register themselves with the Subject.
+- When the Subject changes, it broadcasts to all registered Observers.
 
 - Observer is unidirectional, v.s. Controller in MVC pattern is bidirectional
 - It encapsulates the core component of the Subject
@@ -350,13 +338,14 @@ There is no option for composition, as the Observer interface can be instantiate
 Define a family of algorithms, encapsulate each one, and make them interchangeable.
 Strategy lets the algorithm vary independently from the clients that use it.
 
-- Open-closed principle: software entities (classes, modules, functions, and so on) should be open for extension, but closed for modification
-- Program to an interface, not an implementation
-                     
     [Clent*] ---> [Abstraction* <<interface>>] <--- [ImplementationOne]
                             ^
                             |
                             ----------------------- [ImplementationOne]
+
+- Open-closed principle: software entities (classes, modules, functions, and so on) should be open for extension, but closed for modification
+- Program to an interface, not an implementation
+                    
 # Reference:
 
 1. **LearningPython Design Patterns - Second Edition**

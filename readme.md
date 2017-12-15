@@ -20,8 +20,8 @@ MVC(model-view-controller), Facade, Proxy, Decorator, Adaptor
 Command, Interpretor, State, Chain of responsibility, Strategy, Observer, Memento, Template, Reactive design patterns
 
 ## The Factory Pattern
-
-**Client ---> (Interface) ---> Factory** 
+    
+    [Client] ---> [(Interface)] ---> [Factory] 
 
 Advatages:
 - The first advandage is loose coupling in which object creation can be independent of the class implementation
@@ -40,7 +40,7 @@ The pattern provides objects of another facory, which internally creates other o
 
 ## The Builder Pattern
 
-**Director ---> Builder ---> (Concrete Builder) ---> Product** 
+    [Director] ---> [Builder] ---> [(Concrete Builder)] ---> [Product] 
 
 Separate the construction of a complex object from  its representation so that the same construction process can create different representations.
 Building objects by assembling specifict parts.
@@ -345,7 +345,125 @@ Strategy lets the algorithm vary independently from the clients that use it.
 
 - Open-closed principle: software entities (classes, modules, functions, and so on) should be open for extension, but closed for modification
 - Program to an interface, not an implementation
-                    
+
+## The Memento Pattern
+
+Capture and externalize an object's internal state so that the object can be returned to this state later.
+(It supports undoable & rollback operations)
+
+    [Originator / state ] ---> [Memento / state ] <---<> [Caretaker]
+    [+setMemento()      ]      [+getState()     ]
+    [+createMemento()   ]      [+setState()     ]
+    .       .    
+    .       ............. state = m->getState()
+    ..................... return new Memento(state)
+
+- Originator: the object that knows how to save itself
+- Caretaker: the object that knows why and when the Originator needs to save/restore itself
+- Memento: the state box written and read by the Originator, and shepherded by the Caretaker.
+
+Recall: "undo" in Command pattern
+- Each Command has its own undo method
+- Memento uses chain states in Memento object 
+ 
+## The Template Pattern
+
+[Description #1]
+
+Define the skeleton of an algorithm, deferring some steps tp client subclasses.
+Let subclasses redefine certain steps of an algorithm without changing the algorithm's structure.
+
+    [Implementation #1]
+    
+    [FrameworkClass     ]       ---[ApplicationClassOne ]
+    [+templateMethod()  ]       |  [+stepTwo()          ]
+    [+stepOne()         ] <-----|
+    [+stepTwo()         ]       |
+    [+stepThree()       ]       ---[ApplicationClassTwo ]
+                                   [+stepTwo()          ]                                   
+
+    [Implementation #2]
+    
+    [Client] ---> [SortAlgorithm    ] <-------- [SortAscending  ]
+                  [+sort()          ]       |   [+#compare()    ]
+                  [+#compare()      ]       |
+                  [+returnArray()   ]       --- [SortDescending ]
+                  [+processArray()  ]           [+#compare()    ]
+                  .
+                  .
+                  ... processArray()
+                      compare()
+                      returnArray()
+    
+- Strategy is like Template Method except in its granularity - 
+Template Method uses inheritance to vary part of an algorithm.
+Strategy uses delegation to vary the entire algorithm.
+- Abstract Factory Method is a specialization of Template Method, where the abstract factory acts like the template,
+and its concrete subclasses fill in the details of how to return the required objects.
+    
+[Description #2]
+
+An abstract class is used to define the steps of the algorithm.
+These steps are also known as primitive operations in the context of the Template Method pattern.
+These steps are defined with abstract methods, and the Template Method defines the algorithm.
+The ConcreteClass (that subclasses the abstract class) implements subclass-specific steps of the algorithm.
+
+The Template Method pattern is used in the following cases:
+- When multiple algorithms or classes implement similar or identical logic
+- The implementation of algorithms in subclasses helps reduce code duplication
+- Multiple algorithms can be defined by letting the subclasses implement the behavior through overriding
+
+Main intentions of the Template Method pattern:
+- Defining a skeleton of an algorithm with primitive operations
+- Redefining certain operations of the subclass without chaning the algorithm's structure
+- Achieving code reuse abd avoiding duplicate effort
+- Leveraging common interfaces or implementations
+
+- The Template Method pattern - hooks
+A hook is a method that is declared in the abstract class.
+It is generally given a default implementation.
+The idea behind hooks is to give a subclass the ability to hook into the algorithm whenever needed.
+It's not imperative for the subclass to use hooks and it can easily ignore this.
+
+Advantages
+- There is no code duplication
+- Code reuse happens with the Template Method pattern as it uses inheritance and not composition. Only a few methods need to be overridden.
+- Flexibility lets subclasses decide how to implement steps in an algorithm.
+
+Disavantages
+- Debugging and understanding the sequence of flow in the Template Method pattern can be confusing at times. 
+- Maintenance of the template framework can be a problem as changes at any level.
+
+## The Reactive Programming Pattern
+
+(This is not an ordinary pattern from Gang of Four.)
+
+    ---> [event #1] ---> [event #2] ---> [X] ---> [event #3] ---> [event #4] --- || ---> time
+            .                            .                                       .
+            .                            .                                       .
+            .                            .                                       .
+            ...... indicates an event    ... indicates an error                  ... indicates that
+                   with some value,                                                  stream has completed
+                   e.g. coordinates of a click
+
+What is Reactive Programming:
+- Extends the observer pattern
+- Composing asynchronous and event-based programs by using observable sequences
+- Treat streams of asynchronous events with the same sort of simple, composable operations that you use for collections of data items licke arrays
+- It frees your form tangled webs of callbacks, and thereby makes your code more readable and less prone to bugs
+- Abstract away concerns about things like synchronization, thread-safety, concurrent data structures, and non-blocking I/O
+
+What is RxPY:
+- Reactive Extensions for Python (RxPY) is a set of libraries for reactive programming
+- Asynchronous data streams are represented with Observables.
+Multiple strams from diverse sources (for example, stock quote, Tweets, computer event) are supported
+- The Observable type implements static query operatiors which allow you to easily filter, map, reduce, compose and perform time-based operations on multiple events
+- Concurrency in data/event strams can be parametrized using Schedulers
+
+> pip install rx
+
+Guthub [Link](http://github.com/ReactiveX/RxPY) to RxPY
+
 # Reference:
 
 1. **LearningPython Design Patterns - Second Edition**

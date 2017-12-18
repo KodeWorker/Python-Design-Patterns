@@ -464,6 +464,126 @@ Multiple strams from diverse sources (for example, stock quote, Tweets, computer
 
 Guthub [Link](http://github.com/ReactiveX/RxPY) to RxPY
 
+## Spaghetti Code (AntiPattern)
+
+Program flow is twisted and tangled like spaghetti.
+
+Symptoms:
+- Code with very little structure
+- Hard to understand, even to the original developer
+- Very process oriented
+- Small number of objects with very large methods and multiple responsibilities
+- Minimal relationship between objects
+- Pattern of object use is very predictable
+
+Consequences:
+- Difficult to extend or reuse
+- Software quickly reach to a point of diminishing returns;
+the effort involved in maintaining an existing code base is greater than the cost of developing a new solution
+- Flow of execution is determined by object implementation, not the client
+- Benefits of OO are lost
+
+Typical Causes:
+- Inexperience with or lack of understanding of OOP
+- Working in isolation
+- Ineffective code review
+- No design before implementation
+- In fact, these are typical causes of most anipatterns!
+
+How to prevent it?
+- Python meaningful indentation helps
+- Avoid large multi-responsibility classes or methods
+- Ask someone unfamiliar with the code to read it and see if they can easily understand its intention
+- Design before implementation
+
+## Blob (AntiPattern)
+
+One class monopolizes the processing, and other classes primarily encapsulate data, aka a God object.
+
+    [Example Blob Archetecture]
+    
+    [Main Controller Class  ] <--- [Images]
+    [+Data_List_Provider    ] <--- [Records]
+    [+State                 ] <--- [Data1]
+    [+Mode                  ] <--- [Figure1]
+    [+User                  ] <--- [Users]
+    [+Group                 ] <--- [ErrorSet]
+    [...                    ] <--- [Table1]
+    [-----------------------]      ...
+    [+Start()               ]
+    [+Stop()                ]
+    [+Initialize()          ]
+    [+Set_Mode()            ]
+    [...                    ]
+    
+Syptoms
+- Single class with a large number of attributes and/or operations
+- These attributes and operations tend to be quite disparate - not clear why they should belong to one class
+- The single contoller class has many associated simple, data-object classes
+- All source code in one monolithic file
+
+Consequences:
+- Limits OO benefits, for example, makes it hard to modify the system without affecting the functionality of other encapsulated objects
+- Typical too complex for testing
+- The Blob class may be expensive to load into memory
+
+How to refactor a Blob?
+- System represents a library, with items that can be catalogued, and checked in and out by people
+- The Library Main Control is a Blob
+
+1. Identify related methods on the Blob
+2. Try to find natual homes for these in the other classes
+3. Rmove far-coupled links, for example, Main Control doesn't need to access Item directly.
+Item belongs to Catalog.
+4. Remove transient associations, for example, Check_Out_Item can be move to a transient class.
+
+** Acceptable exception **: wrapping legacy systems - there is no software partitioning required, just a final layer of code to make the legacy system more accessible.
+
+## Functional Decomposition (AntiPattern)
+
+Discrete functions for data manipulation.
+Good for procedural progamming but doesn't translate to class hierarchy.
+
+Symptoms:
+- All class attributes are private and used only inside the class
+- Classes with a single action such as a function
+- No leveraging of object-oriented principles such as inheritance and polymophism
+
+Consequences:
+- Class models make little sense as object
+- Hard to document how the system works
+- No OO benefit of reuse
+
+Tips for Refactoring Away from Functional Decomposition
+- If the class has a single method, try to better model it as part of an existing class
+- Attempt to combine several classes into a new class that satisfies a design objective.
+E.g. rather than have classes to manage device access, to filter information to an from the devices and to control the device, combine them into a single device controller object.
+- If the class does not contain state information of any kind, consider rewriting it as a funcion
+- Examine the design and find similar subsystems, these are reuse candidates
+
+** Acceptable exception **: when OO solution is not requred. This can be extended to solutions that are purely functional in nature but wrapped to provide an object-oriented interface to the implementation code.
+
+## Copy and Paste (AntiPattern)
+
+Degenerate form of software reuse which is hard to maintain.
+Overusing the notion that it's easier to modify existing software than program from scratch.
+It's totaly against the idea of DRY (Donot Repeat Yourself).
+
+Symptoms and Consequences:
+- Several similar segments of code interspersed throughout the software project
+- Lines of code increase without adding to overall productivity
+- Same bug reoccurs throughout software
+- Difficult to locate and fix all instances of a particular mistake
+- Reusable assets are not converted into an easily reusable and documented form
+
+Causes:
+- In the short-term it's faster to copy and paste than to design reusable components, so this antipattern occurs when short term payoff is valued over long term investmentor maintainablility
+- Poor understanding of inheritance, composition, and other reuse strategies
+- Existing code is hard to understance, so when asked to create something similar, copy and paste may seem like the lowest risk option
+- Spaghetti code
+
+** Acceptable exception **: urgent hot fix, patch or feature deadline, with the intention of refactoring almost immediately.
+
 # Reference:
 
 1. **LearningPython Design Patterns - Second Edition**
